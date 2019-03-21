@@ -27,7 +27,7 @@
 		AAE92E632241437900ADA584 /* SetGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameViewController.swift; sourceTree = "<group>"; };
 		B30E20FD2219DAF00049D68E /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
 		B30E20FF221A2B2B0049D68E /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		B397EDBC2219D06200952087 /* GraphicalSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphicalSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B397EDBC2219D06200952087 /* AnimatedSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B397EDBF2219D06200952087 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B397EDC12219D06200952087 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B397EDC42219D06200952087 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		B397EDB32219D06200952087 = {
 			isa = PBXGroup;
 			children = (
-				B397EDBE2219D06200952087 /* GraphicalSet */,
+				B397EDBE2219D06200952087 /* AnimatedSet */,
 				B397EDBD2219D06200952087 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,12 +58,12 @@
 		B397EDBD2219D06200952087 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B397EDBC2219D06200952087 /* GraphicalSet.app */,
+				B397EDBC2219D06200952087 /* AnimatedSet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B397EDBE2219D06200952087 /* GraphicalSet */ = {
+		B397EDBE2219D06200952087 /* AnimatedSet */ = {
 			isa = PBXGroup;
 			children = (
 				AA236B482241401A005EAC6C /* SetModel.swift */,
@@ -79,15 +79,15 @@
 				B397EDCB2219D06900952087 /* Info.plist */,
 				AAE92E632241437900ADA584 /* SetGameViewController.swift */,
 			);
-			path = GraphicalSet;
+			path = AnimatedSet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B397EDBB2219D06200952087 /* GraphicalSet */ = {
+		B397EDBB2219D06200952087 /* AnimatedSet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B397EDCE2219D06900952087 /* Build configuration list for PBXNativeTarget "GraphicalSet" */;
+			buildConfigurationList = B397EDCE2219D06900952087 /* Build configuration list for PBXNativeTarget "AnimatedSet" */;
 			buildPhases = (
 				B397EDB82219D06200952087 /* Sources */,
 				B397EDB92219D06200952087 /* Frameworks */,
@@ -97,9 +97,9 @@
 			);
 			dependencies = (
 			);
-			name = GraphicalSet;
+			name = AnimatedSet;
 			productName = GraphicalSet;
-			productReference = B397EDBC2219D06200952087 /* GraphicalSet.app */;
+			productReference = B397EDBC2219D06200952087 /* AnimatedSet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +117,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B397EDB72219D06200952087 /* Build configuration list for PBXProject "GraphicalSet" */;
+			buildConfigurationList = B397EDB72219D06200952087 /* Build configuration list for PBXProject "AnimatedSet" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -130,7 +130,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B397EDBB2219D06200952087 /* GraphicalSet */,
+				B397EDBB2219D06200952087 /* AnimatedSet */,
 			);
 		};
 /* End PBXProject section */
@@ -308,12 +308,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MD6YBTQ2AR;
-				INFOPLIST_FILE = GraphicalSet/Info.plist;
+				INFOPLIST_FILE = AnimatedSet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.endava.stanford.GraphicalSet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.endava.stanford.AnimatedSet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -326,12 +326,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MD6YBTQ2AR;
-				INFOPLIST_FILE = GraphicalSet/Info.plist;
+				INFOPLIST_FILE = AnimatedSet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.endava.stanford.GraphicalSet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.endava.stanford.AnimatedSet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -341,7 +341,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B397EDB72219D06200952087 /* Build configuration list for PBXProject "GraphicalSet" */ = {
+		B397EDB72219D06200952087 /* Build configuration list for PBXProject "AnimatedSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B397EDCC2219D06900952087 /* Debug */,
@@ -350,7 +350,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B397EDCE2219D06900952087 /* Build configuration list for PBXNativeTarget "GraphicalSet" */ = {
+		B397EDCE2219D06900952087 /* Build configuration list for PBXNativeTarget "AnimatedSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B397EDCF2219D06900952087 /* Debug */,
