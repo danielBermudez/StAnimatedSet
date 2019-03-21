@@ -17,13 +17,13 @@ class ViewController: UIViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let position = touch.location(in: setGameView)
+            
             guard let viewTouched = touch.view else {
                 return
             }
             
            
-            print("Tag view \(viewTouched.tag)")
+            
             touchCard(cardNumber: viewTouched.tag)
             setGameView.setNeedsDisplay()
         }
@@ -51,17 +51,17 @@ class ViewController: UIViewController {
         if (setGame.gameDeck.count == 81){
             sender.isEnabled = false
         } else {
-        setGame.addCardsToGame(numberOfCards: 3)
-         updateCards()
-       addNewCards()
-      setGameView.addCards(deck: deckView)
-       
+       addCardsToGame()
+            
         }
-
     }
     
-
-   
+    @objc func addCardsToGame(){
+    setGame.addCardsToGame(numberOfCards: 3)
+    updateCards()
+    addNewCards()
+    setGameView.addCards(deck: deckView)
+    }
     @IBOutlet weak var setGameView : SetGameView!{
     didSet{
         setGameView.tag = 100
@@ -118,11 +118,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
        
-        
-        
+         NotificationCenter.default.addObserver(self, selector: #selector(updateCardsSize), name: UIDevice.orientationDidChangeNotification, object: nil)
           
-            
+            swypeDownAddMoreCards()
         
+    }
+    @objc func updateCardsSize(){
+    updateFrames()
+    updateCards()
+    setGameView.addCards(deck: deckView)
+    }
+    func swypeDownAddMoreCards(){
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(addCardsToGame))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
     }
 
     @IBAction func restartGame(_ sender: Any) {

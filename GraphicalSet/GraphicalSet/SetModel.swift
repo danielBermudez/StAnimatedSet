@@ -12,7 +12,7 @@ class SetModel{
     private(set) var cardsShown = 12
     private(set) var maxcardsShown = 24
 
-    private var selectedCardsIndexs = [0,0]
+    private var selectedCardsIndexs = [-1,-1]
     private(set) var numberOfSets = 0
     private(set) var score = 0
     private(set) var gameDeck = [setCard]()
@@ -34,20 +34,29 @@ class SetModel{
     }
     func chooseCard(at index :Int){
 //        No Cards Selected
-        if(selectedCardsIndexs[0] == 0 && selectedCardsIndexs[1] == 0){
+        if index < 81 {
+        if selectedCardsIndexs.contains(index){
+             gameDeck[index].setSelected(selection: false)
+            selectedCardsIndexs[selectedCardsIndexs.firstIndex(of: index)!] = -1
+        } else if(selectedCardsIndexs[0] == -1 && selectedCardsIndexs[1] == -1){
             selectedCardsIndexs[0] = index
-            gameDeck[index].setSelected(selection: true)}
+            gameDeck[index].setSelected(selection: true)
 //            One card selected
-            else if(selectedCardsIndexs[0] != 0 && selectedCardsIndexs[1] == 0){
+        } else if(selectedCardsIndexs[0] != -1 && selectedCardsIndexs[1] == -1){
             selectedCardsIndexs[1] = index
             gameDeck[index].setSelected(selection: true)
 //       two cards selected
-        }else{
+        } else if(selectedCardsIndexs[0] == -1 && selectedCardsIndexs[1] != -1){
+            selectedCardsIndexs[0] = index
+            gameDeck[index].setSelected(selection: true)
+            //       two cards selected
+        }
+        else{
             if(validateSet(cards:(gameDeck[selectedCardsIndexs[0]],gameDeck[selectedCardsIndexs[1]],gameDeck[index]))){
                numberOfSets = numberOfSets + 1                
             }
             deselectCards()
-         }       }
+            }    }   }
 //    func dealAdditionalCards(numberOfCards:Int){
 //    if((cardsShown+numberOfCards)<=maxcardsShown){
 //        cardsShown = cardsShown + numberOfCards
@@ -55,7 +64,7 @@ class SetModel{
 //
 //        }}
     func deselectCards(){
-        selectedCardsIndexs = [0,0]
+        selectedCardsIndexs = [-1,-1]
         for flipDownIndex in gameDeck.indices{                gameDeck[flipDownIndex].setSelected(selection: false)
         }
     }
