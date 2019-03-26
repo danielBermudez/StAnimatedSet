@@ -10,20 +10,28 @@ import UIKit
 @IBDesignable
 
 class ViewController: UIViewController {
-    @IBOutlet weak var setCount: UILabel!
     var setGame = SetModel()
-        var deckView = [SetCardView]()
-        var frames = [CGRect]()
-
+    var deckView = [SetCardView]()
+    var frames = [CGRect]()
+    @IBOutlet weak var setCount: UILabel!
+    @IBOutlet weak var addCardsButton: UIButton!
+    @IBOutlet weak var startDeck: UIButton!
+    @IBOutlet weak var setGameView : SetGameView!{
+        didSet{
+            setGameView.tag = 100
+            setGame.startGame()
+            setGame.fillDeck()
+            
+        }}
+  
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             
             guard let viewTouched = touch.view else {
                 return
             }
-            
-           
-            
             touchCard(cardNumber: viewTouched.tag)
             setGameView.setNeedsDisplay()
         }
@@ -46,7 +54,7 @@ class ViewController: UIViewController {
         setCount.text = "Sets: \(setGame.numberOfSets)"
     }
     
-    @IBOutlet weak var addCardsButton: UIButton!
+   
     @IBAction func AddCards(_ sender: UIButton) {
         if (setGame.gameDeck.count == 81){
             sender.isEnabled = false
@@ -62,14 +70,7 @@ class ViewController: UIViewController {
     addNewCards()
     setGameView.addCards(deck: deckView)
     }
-    @IBOutlet weak var setGameView : SetGameView!{
-    didSet{
-        setGameView.tag = 100
-        setGame.startGame()
-        setGame.fillDeck()
-        initialCards()
-        setGameView.addCards(deck: deckView)
-        }}
+   
     private func setColorFromModel(color :String)->UIColor?{
         if(color == "red"){
             return UIColor.red
@@ -81,26 +82,31 @@ class ViewController: UIViewController {
         
     }
     
+   
     private func initialCards(){
-        // TO DO Restore 
-       updateFrames()        
+        // TO DO Restore
+        
+//       updateFrames()
+        
         for index in setGame.gameDeck.indices{
             let emptyCard = SetCardView()
-            let card = setGameView.drawCard(cardToDraw: emptyCard,shape: setGame.gameDeck[index].shape, numberOfShapes: setGame.gameDeck[index].numberOfShapes, shade: setGame.gameDeck[index].shade, color: setColorFromModel(color:setGame.gameDeck[index].color)!, frame: frames[index])
+            let frame = startDeck.self.frame
+            let card = setGameView.drawCard(isFaceDown : setGame.gameDeck[index].isFaceDown, cardToDraw: emptyCard,shape: setGame.gameDeck[index].shape, numberOfShapes: setGame.gameDeck[index].numberOfShapes, shade: setGame.gameDeck[index].shade, color: setColorFromModel(color:setGame.gameDeck[index].color)!, frame: frame)
             card.tag = index;
             deckView.append(card)
             
       }
         
     }
+     
     private func updateFrames(){
       frames = setGameView.addCards(NumberOFcards: setGame.gameDeck.count)
     }
     private func updateCards(){
             updateFrames()
         for i  in deckView.indices {
-            setGameView.cleanCardDraw(card: deckView[i])
-            deckView[i] = setGameView.drawCard(cardToDraw: deckView[i],shape: setGame.gameDeck[i].shape, numberOfShapes: setGame.gameDeck[i].numberOfShapes, shade: setGame.gameDeck[i].shade, color: setColorFromModel(color:setGame.gameDeck[i].color)!, frame: frames[i])
+            setGameView.cleanCardDraw( card: deckView[i])
+            deckView[i] = setGameView.drawCard( isFaceDown: setGame.gameDeck[i].isFaceDown , cardToDraw: deckView[i],shape: setGame.gameDeck[i].shape, numberOfShapes: setGame.gameDeck[i].numberOfShapes, shade: setGame.gameDeck[i].shade, color: setColorFromModel(color:setGame.gameDeck[i].color)!, frame: frames[i])
         }
     
         
@@ -109,7 +115,7 @@ class ViewController: UIViewController {
         updateFrames()
         for index in deckView.count ... (setGame.gameDeck.count - 1 ) {
             let emptyCard = SetCardView()
-            let card = setGameView.drawCard(cardToDraw: emptyCard,shape: setGame.gameDeck[index].shape, numberOfShapes: setGame.gameDeck[index].numberOfShapes, shade: setGame.gameDeck[index].shade, color: setColorFromModel(color:setGame.gameDeck[index].color)!, frame: frames[index])
+            let card = setGameView.drawCard(isFaceDown: setGame.gameDeck[index].isFaceDown, cardToDraw: emptyCard,shape: setGame.gameDeck[index].shape, numberOfShapes: setGame.gameDeck[index].numberOfShapes, shade: setGame.gameDeck[index].shade, color: setColorFromModel(color:setGame.gameDeck[index].color)!, frame: frames[index])
             card.tag = index;
             deckView.append(card)
         }
@@ -118,11 +124,54 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
        
-         NotificationCenter.default.addObserver(self, selector: #selector(updateCardsSize), name: UIDevice.orientationDidChangeNotification, object: nil)
-          
+NotificationCenter.default.addObserver(self, selector: #selector(updateCardsSize), name: UIDevice.orientationDidChangeNotification, object: nil)
+        initialCards()
+        setGameView.addCards(deck: deckView)
+        updateFrames()
+       animatecard()
+        
+        
+        
             swypeDownAddMoreCards()
         
     }
+    func animatecard(){
+        
+        
+        for index in deckView.indices {
+            var time :Double{
+                if index == 0 {
+                    return 0
+                } else {
+                    return ( Double(index) - 0.5)
+                }
+            }
+            UIViewPropertyAnimator.runningPropertyAnimator(
+                withDuration: 2,
+                delay: time,
+                options: .curveEaseIn,
+                animations: {
+                    
+                    self.deckView[index].frame = self.frames[index]
+            }, completion:{ _ in
+                UIViewPropertyAnimator.runningPropertyAnimator(
+                    withDuration:2,
+                    delay: time + 0.5,
+                    options: .transitionFlipFromLeft,
+                    animations: {
+                        self.setGame.flipCard(index: index)
+                        self.updateCardsSize()
+                        
+                        self.deckView[index].setNeedsDisplay()
+                        
+                        
+                })
+                
+            }
+            )}
+    }
+    
+
     @objc func updateCardsSize(){
     updateFrames()
     updateCards()
@@ -139,6 +188,7 @@ class ViewController: UIViewController {
         deckView.removeAll()
         setGameView.cleanView()
         initialCards()
+        animatecard()
        setGameView.addCards(deck: deckView)
         
         updateSetLabel()

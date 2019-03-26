@@ -26,6 +26,7 @@ class SetModel{
                     card.setShape( shape: shape.rawValue)
                     card.setColor( color: color.rawValue)
                      card.setshade(shade: shade.rawValue)
+                    card.setFaceDown(selection: true )
                     completeDeck.append(card)
                     }
                 }
@@ -63,9 +64,13 @@ class SetModel{
 //        addCardsToGame(numberOfCards: numberOfCards)
 //
 //        }}
+    func flipCard(index : Int){
+            gameDeck[index].setFaceDown(selection: !gameDeck[index].isFaceDown)        
+    }
     func deselectCards(){
         selectedCardsIndexs = [-1,-1]
-        for flipDownIndex in gameDeck.indices{                gameDeck[flipDownIndex].setSelected(selection: false)
+        for flipDownIndex in gameDeck.indices{
+            gameDeck[flipDownIndex].setSelected(selection: false)
         }
     }
     func restartGame(){

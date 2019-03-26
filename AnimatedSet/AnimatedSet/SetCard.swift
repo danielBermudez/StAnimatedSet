@@ -16,8 +16,12 @@ struct setCard{
     
     
     private(set) var isSelected = false
+    private(set) var isFaceDown = true
     mutating func setSelected(selection: Bool){
         isSelected = selection
+    }
+    mutating func setFaceDown(selection: Bool){
+        isFaceDown = selection
     }
     mutating func setShape(shape:String){
         self.shape = shape

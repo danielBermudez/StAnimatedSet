@@ -11,11 +11,14 @@ import UIKit
 class SetGameView: UIView {
     
     var gameDeckView = [SetCardView]()
+    var frames = [CGRect]()
+   
    
     
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
+
     override func draw(_ rect: CGRect) {
 //        drawCard(shape: "triangle", numberOfShapes: 2, shade: "", color: UIColor.blue)
         
@@ -27,8 +30,8 @@ class SetGameView: UIView {
 //        drawCard(shape: "triangle", numberOfShapes: 2, shade: "nil", color: "nil")
   
     }
-    func addCards(NumberOFcards:Int)-> [CGRect]{
-        var frames = [CGRect]()
+        func addCards(NumberOFcards:Int)-> [CGRect]{
+        
         var grid = Grid.init(layout: Grid.Layout.aspectRatio(2/3))
         grid.frame = self.bounds
         grid.cellCount = NumberOFcards
@@ -44,11 +47,14 @@ class SetGameView: UIView {
     }
     
     func addCards(deck : [SetCardView]){
+        gameDeckView = deck
         self.setNeedsDisplay()
-        for card in deck {
+        for card in gameDeckView {
               addSubview(card)
         }
     }
+    
+    
    
     
     func cleanView(){
@@ -58,8 +64,10 @@ class SetGameView: UIView {
         self.setNeedsDisplay()
     }
    
-    func drawCard(cardToDraw: SetCardView,shape:String, numberOfShapes:Int, shade:String, color:UIColor, frame : CGRect)-> SetCardView{
+    func drawCard(isFaceDown: Bool, cardToDraw: SetCardView,shape:String, numberOfShapes:Int, shade:String, color:UIColor, frame : CGRect)-> SetCardView{
         cardToDraw.frame = frame
+        cardToDraw.isFaceDown = isFaceDown
+        if isFaceDown != true{
         var path = [UIBezierPath]()
         if(shape == "triangle"){
             path = cardToDraw.drawTriangles(center: cardToDraw.bounds, numberOfShapes: CGFloat(numberOfShapes))
@@ -84,9 +92,12 @@ class SetGameView: UIView {
             }
            cardToDraw.setcolor(color: color, path: path[index],alpha:alpha,fill: fill)
             }
-        return cardToDraw
+       
         
-        }        
+        }
+         return cardToDraw
+    }
+   
     }
     
 

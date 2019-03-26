@@ -11,14 +11,23 @@ import UIKit
 class SetCardView: UIView {
     var rounderRect = UIBezierPath()
     var isSelected = false
+    var isFaceDown = true
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         
         // Drawing code
-        
         rounderRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        if isFaceDown{
+            UIColor.cyan.setFill()
+            rounderRect.fill()
+            
+
+        } else {
+           
+            UIColor.white.setFill()
+            rounderRect.fill()
         if isSelected == false {
         UIColor.white.setFill()
         UIColor.cyan.setStroke()
@@ -28,6 +37,8 @@ class SetCardView: UIView {
            
           UIColor.cyan.setFill()
             rounderRect.fill()
+            
+        }
         }
 
       
@@ -46,13 +57,14 @@ class SetCardView: UIView {
     }
 
     func  removeShape(){
-        let sublayers = self.layer.sublayers
-        for layer in sublayers! {
+        if let sublayers = self.layer.sublayers{
+        
+        for layer in sublayers {
             layer.removeFromSuperlayer()
         }
         self.layer.needsDisplay()
         
-    }
+        }}
     func drawTriangles(center:CGRect,numberOfShapes: CGFloat)->[UIBezierPath]{
         var triangles = [UIBezierPath]()
         var scale = CGFloat()
